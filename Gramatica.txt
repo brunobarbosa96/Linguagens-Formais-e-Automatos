@@ -1,0 +1,132 @@
+Gramáticas
+	-> Gerar linguagens
+
+
+j) L(G) = { a^n 0^m 1 2^k 0^m b^n, n >= 1, m >= 2 e k >= 3 }
+
+R: 
+	A -> aBb | aBb
+	B -> 0B0 | 001C00
+	C -> 2C | 222
+
+k) L(G) = { (01)^n (10)^n (10)^m (01)^m, n >= 0 e m >= 0 }
+
+R: 
+	S -> AB
+	A -> 01A10 | E
+	B -> 10B01 | E
+
+
+n) L(G) = { 0 0^k 0^n 1^m 1^m 2^x 0^n, k>= 0, n >= 1, m >= 2, x >= 3 } 
+
+
+
+Gramática Regulares
+	-> Regras são do tipo:
+
+	A -> aB onde a E VT onde a E Vt bE VtU {e}
+
+	ou
+
+	A -> b   A e B E Vn
+
+Ex: G.R. para gerar números naturais
+
+SEMPRE OBEDECER AS 3 REGRAS
+1) Sempre ter uma regra começando com um não terminal seguido de um terminal
+2) Nunca ter duas regras começando com o mesmo não terminal na mesma regra
+3) Vazio sempre deve estar sozinho
+
+
+<N> ::= [0-9] <N> | [0-9] -- começa com o mesmo não terminal na mesma regra
+
+ou 
+
+<N> ::= [0-9] <r1>
+<r1> ::= [0-9] <r1> | e
+
+2) 
+	Inteiros (Z)
+
+	<Int> ::= - <r1> | [0-9] <r2>
+	<r1> ::= [0-9] <r2>
+	<r2> ::= [0-9] <r2> | e
+
+3) 
+	Números Reais (R)
+	ex: 1
+	   -20
+	   2.35
+	   -3.14
+R: 
+	<R> ::= - <r1> | [0-9] <r2>
+	<r1> ::= [0-9] <r2> 
+	<r2> ::= [0-9] <r2> | .<r3> | e
+	<r3> ::=  [0-9] <r4>
+	<r4> ::= [0-9] <r4> | e
+
+4) G.R. para gerar: <, <=, >, >=, !=, == 
+R: 
+	<oprel> ::= <<r1> | ><r1> | !<r2> | =
+	<r1> ::= = | e
+	<r2> ::= =
+
+ou 
+
+	<oprel> ::= (<|>)<r1> | (!|=)<r2>	
+	<r1> ::= = | e
+	<r2> ::= =
+
+5) G.R. para gerar: ||, &&, ! or, and, not
+R: 
+	<opcond> ::= |<r1> | &<r2> | ! | o<r3> | a<r4> | n<r6>
+	<r1> ::= |
+	<r2> ::= &
+	<r3> ::= r
+	<r4> ::= n<r5>
+	<r5> ::= d
+	<r6> ::= o<r7>
+	<r7> ::= t
+
+6) G.R. para gerar as palavras:
+	BEBO 	BEBE
+	BABO	BABA
+	BOLO	BOLA
+
+R:
+	<r1> ::= B<r2>
+	<r2> ::= (E|A|O)<r3>
+	<r3> ::= (B|L)<r4><r4>
+	<r4> ::= (E|A|O)
+
+Resposta certa:
+	<r1> ::= B<r2> | A<r5> | O<r7>
+	<r2> ::= E<r3> | A<r5>
+	<r3> ::= B<r4>
+	<r4> ::= O|E
+	<r5> ::= B <r6>
+	<r6> ::= O | A
+	<r7> ::= L<r6>
+
+7) G.R. para gerar os nºs romanos de 1 a 20;
+	I, V, X
+
+R: 
+	<r1> ::= I<r2> | V<r4> | X<r6>
+	<r2> ::= I<r3> | V | X | e
+	<r3> ::= I | e
+	<r4> ::= I<r5> | e
+	<r5> ::= I<r3> | e
+	<r6> ::= I<r2> | V<r4> | X | e 
+
+
+8) G.R. para gerar os nºs romanos de 40 a 50
+	XL, XLI, XLII ... L 
+R: 
+	<r1> ::= X<r2> | L
+	<r2> ::= L<r3>
+	<r3> ::= I<r4> | V<r6> | e
+	<r4> ::= I<r5> | V | X | e
+	<r5> ::= I | e
+	<r6> ::= I<r7> | e
+	<r7> ::= I<r5> | e
